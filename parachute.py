@@ -1,3 +1,6 @@
+#from word import
+#from terminal_service import
+
 class parachute:
     def __init__(self):
         mistakes = 0
@@ -6,14 +9,26 @@ class parachute:
 
     def mistake_made(self):
         self.mistake += 1
-        if self.mistake == 4:
-            #Game over
-            pass
 
 
 
 
 """
+picture = ""
+if mistakes = 0:
+    picture = picture + "___\n"
+if mistakes < 2:
+    picture = picture + "/___\ \n"
+if mistakes < 3:
+    picture = picture + "\   / \n"
+if mistakes < 4:
+    picture = picture + "\  / \n"
+if mistakes = 4:
+    picture = picture + "X \n"
+else:
+    picture = picture + "O \n"
+picture = picture + "/|\ \n / \ "
+
     Word
 
      ____   0 mistakes
