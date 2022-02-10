@@ -1,66 +1,121 @@
-# THis is the Word class
+# This is the Word class
 import random
-
-word_list = ["apple", "pear", "grape"]
 
 class Word:
     def __init__(self, word_list):
-        self.word_list = word_list
-        self.word = ""
-        self.letters_list =[]
+        # stitched_word and guessed_letters are the only attributes 
+        # accessable outside the Word class.
+        self.stitched_word = ""
+        self.guessed_letters = []
+        self._word_list = word_list
+        self._word = ""
+        self._letters_list =[]
+        self._letter_spaces = []
+        self._letter_in_word = False
+
+    # This function is called only once at the start of the game.
+    def setup_word(self):
+        """Sets up the word for the game.
+        Parameters:
+            self-- an instance of Word"""
+
+        self._choose_word()
+        self._split_word()
+        self._setup_word_display()
+        self._setup_guessed_list_english()
+
+    # This function is called repeatedly in the game loop.
+    def update_word(self, input_letter):
+        """Updates the word after a user guesses a letter
+        Parameters:
+            self-- an instance of Word
+            inpout_letter-- the letter that was guessed"""
+
+        self._check_letter(input_letter)
+        if self._letter_in_word == True:
+            self._letter_placement(input_letter)
+        self._stitch_letters()
+        self._update_guessed_letters(input_letter)
         
-
-    def _start_game(self):
-        self.choose_word()
-        self.split_word()
-        self.check_letter('p')
-
-    def choose_word(self):
+    def _choose_word(self):
         """chooses a random word.
         Paramaeters
             self-- an instance of the Word class"""
 
-        word = random.choice(self.word_list)
-        self.word = word
+        _word = random.choice(self._word_list)
+        self._word = _word
         
-
-    def split_word(self):
+    def _split_word(self):
         """Splits a word into an array. Each element is one letter
         in order
         Parameters:
             self-- an instance of the Word class"""
 
-        letters_list = []
-        for letter in range (0, len(self.word)):
-            letters_list.append(self.word[letter])
+        _letters_list = []
+        for _letter in range (0, len(self._word)):
+            _letters_list.append(self._word[_letter])
         
-        self.letters_list = letters_list
+        self._letters_list = _letters_list
     
-    def check_letter(self, input_letter):
+    def _check_letter(self, input_letter):
         """Checks if input letter is in the word
         Parameters:
-            self-- an instance of the Word class"""
-        correct_letter_indexes = []
-        for i in range(0, len(self.letters_list)):
-            correct_letter_indexes.append(0)
+            self-- an instance of the Word class
+            input_letter-- the letter being checked"""
 
-        for letter_index in range(0, len(self.letters_list)):
-            if input_letter == self.letters_list[letter_index]:
-                correct_letter_indexes[letter_index] = input_letter
+        if input_letter in self._word:
+            self._letter_in_word = True
         
-        print(correct_letter_indexes)
+        else:
+            self._letter_in_word = False
 
+    def _letter_placement(self, input_letter):
+        """Places the letters in the proper spots
+        Parameters:
+            self-- an instance of Word
+            input_letter-- the letter guessed"""
+        
+        for _letter_index in range(0, len(self._letters_list)):
+            _letter_element = self._letters_list[_letter_index]
 
+            if _letter_element.lower() == input_letter.lower():
+                self._letter_spaces[_letter_index] = input_letter.lower()
+  
+    def _stitch_letters(self):
+        """Puts the letters and underscores together
+        Parameters:
+            self-- and instance of Word"""
+        
+        for _letter in self._letter_spaces:
+            self.stitched_word += (_letter + " ")
 
+    def _setup_word_display(self):
+        """Generates an array to contain underscores (_)
+        for each unguessed letter.
+        Parameters:
+            self-- an instance of Word"""
+        
+        for _space in range(0, len(self._word)):
+            self._letter_spaces.append("_")
+    
+    def _setup_guessed_list_english(self):
+        """sets up the guessed list with false elements
+        A letter has been guessed if its index element is True
+        Parameters:
+            self-- an instance of Word"""
 
-director = Word(word_list)
-director._start_game()
+        for letter in range(0, 26):
+            self.guessed_letters.append(False)
 
-
-# word = "twilight"
-# word_array = []
-# word_length = len(word)
-# for i in range(0, word_length):
-#     word_array[i] = word[i]
-# word_array.append(word[i])
-# if letter in word:
+    def _update_guessed_letters(self, input_letter):
+        """Updates the list of letters that have already been 
+        guessed
+        Parameters:
+            self-- an instance of Word
+            input_letter-- the letter to be added to the list
+            of guessed letters"""
+        
+        _letter = input_letter.upper()
+        _ascii_val = ord(_letter)
+        _index_val = _ascii_val - 65
+        self.guessed_letters[_index_val] = True
