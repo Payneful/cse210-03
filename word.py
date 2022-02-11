@@ -10,7 +10,7 @@ class Word:
         self.guessed_letters = []
         self._word_list = word_list
         self._word = ""
-        self._letters_list =[]
+        self._letters_list = []
         self._letter_spaces = []
         self._letter_in_word = False
 
@@ -41,7 +41,7 @@ class Word:
         
     def _choose_word(self):
         """chooses a random word.
-        Paramaeters
+        Parameters
             self-- an instance of the Word class"""
 
         _word = random.choice(self._word_list)
@@ -56,9 +56,9 @@ class Word:
         _letters_list = []
         for _letter in range (0, len(self._word)):
             _letters_list.append(self._word[_letter])
-        
+
         self._letters_list = _letters_list
-    
+
     def _check_letter(self, input_letter):
         """Checks if input letter is in the word
         Parameters:
@@ -67,7 +67,6 @@ class Word:
 
         if input_letter in self._word:
             self._letter_in_word = True
-        
         else:
             self._letter_in_word = False
 
@@ -88,8 +87,12 @@ class Word:
         Parameters:
             self-- and instance of Word"""
         
+        letters = ""
+        
         for _letter in self._letter_spaces:
-            self.stitched_word += (_letter + " ")
+            letters += (_letter + " ")
+            
+        self.stitched_word = letters
 
     def _setup_word_display(self):
         """Generates an array to contain underscores (_)
