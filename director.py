@@ -23,10 +23,11 @@ def game(user):
         user.output("^^^^^^^^")
         print(word._word)
         if parachute.get_mistakes() < 4:
-            user.single_letter_input()
-            word.update_word(user.user_letter)
-            if not word._letter_in_word:
-                parachute.add_mistake()
+            if not word.check_guessed_list():
+                user.single_letter_input()
+                word.update_word(user.user_letter)
+                if not word._letter_in_word:
+                    parachute.add_mistake()
         else:
             return
           
