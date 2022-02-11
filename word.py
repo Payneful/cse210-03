@@ -1,5 +1,6 @@
 # This is the Word class
 import random
+word_list = ['apple', 'banana', 'pear']
 
 class Word:
     def __init__(self, word_list):
@@ -23,6 +24,7 @@ class Word:
         self._split_word()
         self._setup_word_display()
         self._setup_guessed_list_english()
+        self._stitch_letters()
 
     # This function is called repeatedly in the game loop.
     def update_word(self, input_letter):
@@ -119,3 +121,13 @@ class Word:
         _ascii_val = ord(_letter)
         _index_val = _ascii_val - 65
         self.guessed_letters[_index_val] = True
+
+director = Word(word_list)
+director.setup_word()
+not_done = True
+print(director.stitched_word)
+while not_done:
+    letter = input("letter: ")
+    director.update_word(letter)
+    print(director.stitched_word)
+    
