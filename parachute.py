@@ -1,44 +1,43 @@
 from terminal_service import Terminal_Service
 
-class parachute:
+class Parachute:
     def __init__(self):
         self._mistakes = 0
-        console = Terminal_Service()
 
     def add_mistake(self):
         self._mistakes += 1
 
     def create_stickman(self):
-        picture = "\n"
+        picture = ""
+        terminal = Terminal_Service()
         if self._mistakes == 0:
             picture = picture + "  ___\n"
-        if self._mistakes < 2:
+        if self._mistakes <= 1:
             picture = picture + " /___\ \n"
-        if self._mistakes < 3:
+        if self._mistakes <= 2:
             picture = picture + " \   / \n"
-        if self._mistakes < 4:
+        if self._mistakes <= 3:
             picture = picture + "  \ / \n"
         if self._mistakes == 4:
             picture = picture + "   X \n"
         else:
             picture = picture + "   O \n"
-        picture = picture + "  /|\ \n  / \ \n"
+        picture = picture + "  /|\ \n  / \ "
         #send picture to terminal
-        self.console.output(picture)
-
-
-
+        terminal.output(picture)
+        
+    def get_mistakes(self):
+        '''Returns the amount of mistakes'''
+        return self._mistakes
 
 """
     Word
-
-     ____   0 mistakes
-    /____\    1 mistakes
-    \    /   2 mistakes
-     \  /   3 mistakes
+     ___    0 mistakes
+    /___\   1 mistakes
+    \   /   2 mistakes
+     \ /    3 mistakes
       O     4 mistakes O -> X
      /|\ 
      / \ 
-
 ^^^^^^^^^^^
 """
