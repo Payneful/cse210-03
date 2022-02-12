@@ -38,7 +38,7 @@ def game(user):
             user.output("^^^^^^^^")
             user.output(f"Better luck next time!\nWord was: {word._word}")
             return
-    
+
     # If you guessed every letter
     user.output(word.stitched_word)
     parachute.create_stickman()
@@ -49,6 +49,7 @@ def main():
     '''Main function to run the program'''
     # Instantiate a terminal service for in/output
     user = Terminal_Service()
+
     play = ["y","n"]
     play_again = "y"
 
