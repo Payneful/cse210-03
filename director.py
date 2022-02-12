@@ -1,4 +1,3 @@
-from msvcrt import kbhit
 from parachute import Parachute
 from terminal_service import Terminal_Service
 from word import Word
@@ -25,36 +24,34 @@ def game(user):
         if parachute.get_mistakes() < 4:
             user.single_letter_input()
             if not word.check_guessed_list(user.user_letter):
-                
                 word.update_word(user.user_letter)
                 if not word._letter_in_word:
                     parachute.add_mistake()
         else:
+            user.output(word.stitched_word)
+            parachute.create_stickman()
+            user.output("^^^^^^^^")
+            user.output(f"Better luck next time!\nWord was: {word._word}")
             return
-          
-    user.output("Congrats\n")
-    play_again(user)
-     
-def play_again(user):
-    choices = ["y","n"]
-    if user.user_letter == "n":
-        user.user_letter == ""
-    
-    while user.user_letter not in choices:
-        user.single_letter_input("Play again? (y/n) ")
         
-    if user.user_letter == "y":
-        return True
-
-    return False
+    user.output(word.stitched_word)
+    parachute.create_stickman()
+    user.output("^^^^^^^^")
+    user.output("Congrats!\n")
 
 def main():
     user = Terminal_Service()
-    
-    game(user)
-    
-    while play_again(user):
+    play = ["y","n"]
+    play_again = "y"
+
+    while play_again == "y":
         game(user)
+        play_again = input("Play again? (y/n) ").lower()
+        while play_again not in play:
+            play_again = input("Play again? (y/n) ").lower()
+
+        if play_again == "n":
+            print("Thanks for playing! Goodbye.")
 
 if __name__ == "__main__":
     main()

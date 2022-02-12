@@ -10,6 +10,7 @@ class Parachute:
     def create_stickman(self):
         picture = ""
         terminal = Terminal_Service()
+        
         if self._mistakes == 0:
             picture = picture + "  ___\n"
         if self._mistakes <= 1:
