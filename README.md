@@ -28,7 +28,7 @@ README.md               (general info)
 Required Technologies
 Python 3.8.0
 Authors
-Jake Rammell
-Bradley Payne
-Codie Snow
+Jake Rammell,
+Bradley Payne,
+Codie Snow,
 Josh Dalton
