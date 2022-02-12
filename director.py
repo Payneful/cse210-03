@@ -33,28 +33,20 @@ def game(user):
             return
           
     user.output("Congrats\n")
-    play_again(user)
-     
-def play_again(user):
-    choices = ["y","n"]
-    if user.user_letter == "n":
-        user.user_letter == ""
-    
-    while user.user_letter not in choices:
-        user.single_letter_input("Play again? (y/n) ")
-        
-    if user.user_letter == "y":
-        return True
 
-    return False
+     
 
 def main():
     user = Terminal_Service()
     
-    game(user)
-    
-    while play_again(user):
+    play_again = "y"
+
+    while play_again == "y":
         game(user)
+        play_again = input("Play again? (y/n) ").lower()
+
+        if play_again == "n":
+            print("Thanks for playing! Goodbye.")
 
 if __name__ == "__main__":
     main()
