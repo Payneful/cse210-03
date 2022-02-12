@@ -3,15 +3,16 @@ import random
 
 class Word:
     def __init__(self, word_list):
-        # stitched_word and guessed_letters are the only attributes 
+        # stitched_word is the only attribute
         # accessable outside the Word class.
         self.stitched_word = ""
-        self.guessed_letters = []
+        self._guessed_letters = []
         self._word_list = word_list
         self._word = ""
         self._letters_list = []
         self._letter_spaces = []
         self._letter_in_word = False
+        
 
     # This function is called only once at the start of the game.
     def setup_word(self):
@@ -45,6 +46,20 @@ class Word:
 
         _word = random.choice(self._word_list)
         self._word = _word
+
+    def check_guessed_list(self, input_letter):
+        """Checks if input has already been guessed
+        Parameters:
+            self-- an instance of Word
+            input_letter-- the letter being checked"""
+        _ascii_val = ord(input_letter.upper())
+        _index_val = _ascii_val - 65
+
+        if self._guessed_letters[_index_val]:
+            return True
+        
+        else:
+            return False
         
     def _split_word(self):
         """Splits a word into an array. Each element is one letter
@@ -109,7 +124,7 @@ class Word:
             self-- an instance of Word"""
 
         for letter in range(0, 26):
-            self.guessed_letters.append(False)
+            self._guessed_letters.append(False)
 
     def _update_guessed_letters(self, input_letter):
         """Updates the list of letters that have already been 
@@ -122,4 +137,4 @@ class Word:
         _letter = input_letter.upper()
         _ascii_val = ord(_letter)
         _index_val = _ascii_val - 65
-        self.guessed_letters[_index_val] = True
+        self._guessed_letters[_index_val] = True
