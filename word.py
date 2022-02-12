@@ -57,7 +57,6 @@ class Word:
 
         if self._guessed_letters[_index_val]:
             return True
-        
         else:
             return False
         
